@@ -9,6 +9,7 @@ import { cn } from "@opal/utils";
 import Text from "@/refresh-components/texts/Text";
 import Truncated from "@/refresh-components/texts/Truncated";
 import { SvgOnyxLogo, SvgOnyxLogoTyped } from "@opal/logos";
+import ThreeCrownsWordmark from "@/refresh-components/ThreeCrownsWordmark";
 
 export interface LogoProps {
   folded?: boolean;
@@ -54,14 +55,7 @@ export default function Logo({
       />
     </div>
   ) : (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      alt="Three Crowns"
-      src="/three-crowns-mark.svg"
-      width={resolvedSize}
-      height={resolvedSize}
-      className={cn("shrink-0", className)}
-    />
+    <ThreeCrownsWordmark folded size={resolvedSize} className={className} />
   );
 
   const renderNameAndPoweredBy = (opts: {
@@ -108,21 +102,8 @@ export default function Logo({
   return applicationName ? (
     renderNameAndPoweredBy({ includeLogo: true, includeName: true })
   ) : folded ? (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      alt="Three Crowns"
-      src="/three-crowns-mark.svg"
-      width={resolvedSize}
-      height={resolvedSize}
-      className={cn("shrink-0", className)}
-    />
+    <ThreeCrownsWordmark folded size={resolvedSize} className={className} />
   ) : (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      alt="Three Crowns"
-      src="/three-crowns-wordmark.png"
-      style={{ height: resolvedSize }}
-      className={cn("shrink-0 w-auto", className)}
-    />
+    <ThreeCrownsWordmark size={16} className={className} />
   );
 }

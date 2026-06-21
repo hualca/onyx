@@ -23,9 +23,12 @@
    hairline. (Unlayered :root wins over Opal by cascade order.)
    ============================================================ */
 :root {
-  --tc-gold: #b49a56;
+  --tc-gold: #8a7434; /* light theme: AA-darkened gold */
   --tc-gold-light: #c9b06e;
   --tc-gold-muted: #8a7434;
+}
+.dark {
+  --tc-gold: #b49a56; /* dark theme: brighter gold */
 }
 
 /* Opt-in DM Serif Display for selective headings (login, welcome greeting,

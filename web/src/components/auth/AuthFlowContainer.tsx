@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThreeCrownsWordmark from "@/refresh-components/ThreeCrownsWordmark";
 
 export default function AuthFlowContainer({
   children,
@@ -12,12 +13,7 @@ export default function AuthFlowContainer({
   return (
     <div className="p-4 flex flex-col items-center justify-center min-h-screen bg-background">
       <div className="auth-card w-full max-w-md flex items-center text-center flex-col bg-background-tint-00 rounded-16 shadow-lg shadow-02 p-6">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/three-crowns-wordmark.png"
-          alt="Three Crowns"
-          className="h-8 w-auto mb-2"
-        />
+        <ThreeCrownsWordmark size={26} className="mb-2" />
         <div className="w-full mt-3">{children}</div>
       </div>
       {authState === "login" && (
