@@ -1,6 +1,0 @@
-# Local-only override (untracked): api_server host port 8080 is taken by the
-# computer-use-demo container, so publish on 8088 instead.
-services:
-  api_server:
-    ports: !override
-      - "8088:8080"
