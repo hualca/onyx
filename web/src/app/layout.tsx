@@ -11,7 +11,7 @@ import {
   WebVitals,
 } from "@/lib/analytics/shared";
 import Script from "next/script";
-import { DM_Mono, Source_Sans_3, DM_Serif_Display } from "next/font/google";
+import { DM_Mono, DM_Sans, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import StatsOverlayLoader from "@/components/dev/StatsOverlayLoader";
@@ -21,10 +21,10 @@ import LicenseExpiryBanner from "@/sections/LicenseExpiryBanner";
 import ProductGatingWrapper from "@/providers/ProductGatingWrapper";
 import SWRConfigProvider from "@/providers/SWRConfigProvider";
 
-// Three Crowns brand fonts (match Prelude): Source Sans 3 body, DM Serif
-// Display for the display/brand var. We keep the original CSS variable names
+// Three Crowns brand fonts (match Prelude): DM Sans body, DM Serif Display for
+// the display/brand var. We keep the original CSS variable names
 // (--font-hanken-grotesk / --font-kh-teka) so every existing reference updates.
-const hankenGrotesk = Source_Sans_3({
+const hankenGrotesk = DM_Sans({
   subsets: ["latin"],
   variable: "--font-hanken-grotesk",
   display: "swap",
@@ -102,7 +102,7 @@ export default function Layout({ children }: LayoutProps) {
       <body className={`relative font-hanken`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

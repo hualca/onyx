@@ -56,8 +56,11 @@ module.exports = {
         "collapsible-up": "collapsible-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["Hanken Grotesk", "sans-serif"],
-        hanken: ["Hanken Grotesk", "sans-serif"],
+        // Prelude: DM Sans (loaded via next/font into --font-hanken-grotesk).
+        // Previously the literal "Hanken Grotesk" was named but never loaded,
+        // so the app silently fell back to system sans — point at the var.
+        sans: ["var(--font-hanken-grotesk)", "DM Sans", "system-ui", "sans-serif"],
+        hanken: ["var(--font-hanken-grotesk)", "DM Sans", "system-ui", "sans-serif"],
       },
       colors: {
         "text-05": "var(--text-05)",

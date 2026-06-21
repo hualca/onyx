@@ -1,0 +1,194 @@
+/* ============================================================================
+   Prelude token bridge — prelude-bridge.css
+   ----------------------------------------------------------------------------
+   Makes the Onyx web app wear the Three Crowns “Prelude” design system:
+   a deep-navy default (dark) with GOLD accents, plus a retoned light theme.
+
+   HOW THIS WORKS (verified against lib/shared/dist/tokens.css)
+   - Onyx’s 147 semantic tokens (e.g. --background-neutral-01, --action-link-05,
+     --theme-primary-05) each resolve to a PRIMITIVE CSS variable (--grey-90,
+     --blue-50, --onyx-chrome-10, …).  Overriding a primitive in :root therefore
+     cascades through every semantic token and every component.
+   - next-themes toggles class `dark` on <html>.  Onyx’s BASE :root is the LIGHT
+     theme; `.dark` re-points the same semantic tokens at the HIGH end of each
+     ramp.  So ONE retoned ramp serves both themes:
+         high end (grey-100…grey-80)  = Prelude DARK surfaces
+         low  end (grey-00…grey-20)   = Prelude LIGHT surfaces
+   - This block is UNLAYERED, so by cascade order it beats Opal’s tokens.css
+     (which is emitted before this import).  Do not wrap it in @layer.
+
+   ALL HEX BELOW IS DERIVED FROM PRELUDE’S --p-* TOKENS (public/prelude/
+   prelude-design.css).  Primitives ARE the hex source of truth, so hardcoding
+   hex here is correct — this is the one place we define token VALUES.
+
+   MAPPING SUMMARY
+   - grey-*  → navy-tinted neutral scale (dark navy at the top, near-white at the
+     bottom) so dark backgrounds/borders and light backgrounds/borders both land
+     on Prelude values from a single monotonic ramp.
+   - tint-*  → matching navy tints (drives the radial-00 gradient + tint surfaces).
+   - blue-*  → GOLD.  The link/active/primary accent stops (40/45/50/60) become
+     the Prelude gold family; the deep stops (80/85/90/95) become dim gold washes
+     used for info backgrounds.  Net effect: links and active states are gold.
+   - onyx-chrome-* (dark primary fill) + onyx-ink-* (light primary fill) → GOLD,
+     so primary buttons fill gold.  We also pin --theme-primary-04/05/06 directly
+     as belt-and-suspenders.
+   - Status ramps (red/green/orange) are LEFT functional (success/error/warning
+     semantics intact); not touched here.
+
+   ON-GOLD TEXT (contrast)
+   - Gold fills need NAVY text, not the white/near-black that Onyx pairs with its
+     grey fills.  Onyx’s main-primary label uses --text-inverted-05 and the
+     action-primary/danger label uses --text-light-05 (always white) — neither
+     can be globally repointed to navy without breaking the red danger button.
+     So the gold-on-navy text fix is applied at the component selectors at the
+     bottom of this file (the only non-token rules here, and intentionally so).
+   ========================================================================== */
+
+:root {
+  /* --------------------------------------------------------------------------
+     GREY RAMP → navy-tinted neutral scale (monotonic: dark→light as # drops)
+     High end = Prelude DARK surfaces, low end = Prelude LIGHT surfaces.
+     Anchors (verified semantic usage):
+       grey-100 page bg (dark)              #1A1A2E   (--p-bg)
+       grey-90  surface  (background-neutral-01 dark) #1F2937 (--p-surface)
+       grey-85  raised   (background-neutral-02 dark) #243447 (--p-surface-raised)
+       grey-80  border   (border-01 dark)             #374151 (--p-border)
+       grey-00  surface  (light)                      #FFFFFF (--p-surface light)
+       grey-02  page bg  (light)                      #F7F8FA (--p-bg light)
+       grey-10  border   (border-01 light)            #D7DCE3 (--p-border light)
+     -------------------------------------------------------------------------- */
+  --grey-100: #1a1a2e; /* dark page background */
+  --grey-98:  #18182b; /* deepest sunken (≈ --p-bg-deep family) */
+  --grey-96:  #1b1c2f; /* smooth step toward surface */
+  --grey-94:  #1c1e33; /* smooth step */
+  --grey-92:  #1e2236; /* smooth step */
+  --grey-90:  #1f2937; /* dark surface (cards, panels, menus) */
+  --grey-85:  #243447; /* dark raised (inputs, hover surface) */
+  --grey-80:  #374151; /* dark default border / divider */
+  --grey-75:  #44505f; /* dark border-strong-ish / inverted dark step */
+  --grey-70:  #525e6e; /* mid */
+  --grey-60:  #6b7280; /* dark muted text family (--p-text-muted) */
+  --grey-50:  #8a909c; /* mid-neutral pivot (border-03/04) */
+  --grey-40:  #9ca3af; /* secondary text family (--p-text-secondary) */
+  --grey-30:  #b6bcc6; /* light step */
+  --grey-20:  #c4cbd6; /* light neutral bg-04 / scrollbar */
+  --grey-10:  #d7dce3; /* light default border (--p-border light) */
+  --grey-08:  #dfe3ea; /* light hairline */
+  --grey-06:  #e7eaf0; /* light neutral-02 */
+  --grey-04:  #eef1f5; /* light raised (--p-surface-raised light) */
+  --grey-02:  #f7f8fa; /* light page background (--p-bg light) */
+  --grey-00:  #ffffff; /* light surface (--p-surface light) */
+
+  /* --------------------------------------------------------------------------
+     TINT RAMP → navy tints for the radial-00 gradient + tint surfaces.
+     Mirrors the grey ramp (tint-95 ≈ near grey-100; tint-02 ≈ near-white).
+     In dark, background-tint-00 = grey-100 (page) and tint-01..04 = tint-95..80;
+     in light, background-tint-00 = grey-00 and tint-01..04 = tint-02..20.
+     -------------------------------------------------------------------------- */
+  --tint-98: #141426; /* deepest navy tint */
+  --tint-95: #1a1f33; /* dark radial inner / tint surface (background-tint-01 dark) */
+  --tint-90: #20283a; /* background-tint-02 dark */
+  --tint-85: #283246; /* background-tint-03 dark */
+  --tint-80: #313c52; /* background-tint-04 dark */
+  --tint-60: #5b6472; /* mid navy-grey (--p-text-secondary light family) */
+  --tint-50: #767e8c; /* mid pivot (theme-gradient-05 light) */
+  --tint-40: #9aa1ad; /* light step */
+  --tint-20: #c7cdd6; /* background-tint-04 light */
+  --tint-10: #dde1e8; /* background-tint-03 light */
+  --tint-05: #eef1f5; /* background-tint-02 light */
+  --tint-02: #f7f8fa; /* background-tint-01 light */
+
+  /* --------------------------------------------------------------------------
+     BLUE / ACCENT RAMP → GOLD.
+     The 40/45/50/60 stops drive links, active states and the action-primary
+     button fill; turning them gold makes links + active states gold.
+     The 80/85/90/95 deep stops drive info washes/backgrounds → dim gold.
+     Light theme uses 40/50/60 for links and 50 for primary; dark uses 40/45/50/60.
+       --p-gold        #B49A56  (dark accent)        → blue-40 / dark accent
+       --p-gold-hover  #C9B06E  (dark brighter)      → blue-45 (dark link/active)
+       --p-gold-on-light #8A7434 (light AA accent)   → blue-50 (light primary/link)
+       --p-gold-muted  #9A8347  (secondary gold)     → blue-60 (light hover/active)
+     -------------------------------------------------------------------------- */
+  --blue-95: #14110a; /* deep gold wash — info bg darkest (status-info-00 dark) */
+  --blue-90: #1f1a0e; /* info bg (status-info-01 / action-link-01 dark) */
+  --blue-85: #2c2512; /* info bg (action-link-02 dark) */
+  --blue-80: #3a3116; /* info bg (status-info-02 / action-link-03 dark) */
+  --blue-60: #9a8347; /* gold-muted — link-06 dark hover / link-04 light */
+  --blue-50: #8a7434; /* AA gold — light primary + light link (action-link-05) */
+  --blue-45: #c9b06e; /* bright gold — dark link/active text (action-link/theme-blue-05 dark) */
+  --blue-40: #b49a56; /* signature gold — dark accent (action-link-06 dark / link-04 light) */
+  --blue-20: #d8c79a; /* soft gold — disabled/wash (action-link-03 light) */
+  --blue-10: #ece1c6; /* faint gold — action-link-02 light */
+  --blue-05: #f6f0e2; /* gold tint — info bg light (status-info-01 / action-link-01 light) */
+  --blue-01: #fbf9f2; /* near-white gold tint — action-link-00 / status-info-00 light */
+
+  /* --------------------------------------------------------------------------
+     PRIMARY BUTTON FILL → GOLD (both themes).
+     Dark primary fill resolves through onyx-chrome-*; light through onyx-ink-*.
+     We retone those primitives AND pin the semantic theme-primary-* tokens, so
+     the primary button is gold no matter which layer wins.
+       fill   = --p-gold        (#B49A56 dark / #8A7434 light)  → *-05
+       hover  = --p-gold-hover  (#C9B06E dark / #6E5C2A light)  → *-04
+       active = --p-gold-muted  (#9A8347 dark / brighter)       → *-06
+     NB: in the button CSS, primary uses 05 as rest, 04 as hover, 06 as active/
+     transient.  We keep that relationship within the gold family.
+     -------------------------------------------------------------------------- */
+
+  /* Dark primary fill primitives (chrome ramp; high index = lighter by default) */
+  --onyx-chrome-00: #9a8347; /* theme-primary-06 dark → active (gold-muted) */
+  --onyx-chrome-10: #b49a56; /* theme-primary-05 dark → rest fill (gold) */
+  --onyx-chrome-20: #c9b06e; /* theme-primary-04 dark → hover (gold-hover) */
+
+  /* Light primary fill primitives (ink ramp; high index = darker by default) */
+  --onyx-ink-100: #9a8347; /* theme-primary-06 light → active (gold-muted) */
+  --onyx-ink-95:  #8a7434; /* theme-primary-05 light → rest fill (AA gold) */
+  --onyx-ink-90:  #6e5c2a; /* theme-primary-04 light → hover (darkened gold) */
+
+  /* Belt-and-suspenders: pin the SEMANTIC primary tokens directly to gold.
+     These win for any consumer that reads the semantic var in the base (light)
+     cascade; the .dark overrides below cover the dark theme. */
+  --theme-primary-05: #8a7434; /* light rest fill */
+  --theme-primary-04: #6e5c2a; /* light hover */
+  --theme-primary-06: #9a8347; /* light active */
+}
+
+/* Dark-theme primary semantic pins (the .dark class re-points these in Opal,
+   so re-pin them here to the gold family for the dark surface). */
+.dark {
+  --theme-primary-05: #b49a56; /* dark rest fill (gold) */
+  --theme-primary-04: #c9b06e; /* dark hover (gold-hover) */
+  --theme-primary-06: #9a8347; /* dark active (gold-muted) */
+}
+
+/* ============================================================================
+   ON-GOLD BUTTON TEXT — navy labels/icons on gold fills (contrast fix)
+   ----------------------------------------------------------------------------
+   The primary buttons now fill GOLD.  Onyx pairs:
+     - main/default primary label/icon → --text-inverted-05 (white in light,
+       near-black in dark)  → white-on-gold FAILS AA in the light theme.
+     - action/“primary” call-to-action label/icon → --text-light-05 (always
+       white) → white-on-gold FAILS in both themes.
+   --text-light-05 also dresses the RED danger button, so it must stay white and
+   cannot be globally repointed.  We therefore set navy text on the gold-filled
+   primary buttons by component selector — the only non-token rules in this file.
+   #1A1A2E === Prelude --p-text-inverse (navy on gold, both themes).
+   ========================================================================== */
+
+/* Stateful button components (button.css) */
+.button-main-primary-text,
+.button-action-primary-text {
+  color: #1a1a2e !important;
+}
+.button-main-primary-icon,
+.button-action-primary-icon {
+  stroke: #1a1a2e !important;
+}
+
+/* Stateless/stateful interactive components (core/interactive styles.css):
+   they drive descendant text/icon via the --interactive-foreground custom
+   props, so navy must be set on the interactive root for gold-filled primaries. */
+.interactive[data-interactive-variant="default"][data-interactive-prominence="primary"]:not([data-disabled]),
+.interactive[data-interactive-variant="action"][data-interactive-prominence="primary"]:not([data-disabled]) {
+  --interactive-foreground: #1a1a2e;
+  --interactive-foreground-icon: #1a1a2e;
+}

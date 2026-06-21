@@ -1,4 +1,5 @@
 @import "@onyx-ai/opal/root.css";
+@import "./css/prelude-bridge.css";
 @import "./css/attachment-button.css" layer(base);
 @import "./css/button.css" layer(base);
 @import "./css/content-editable.css" layer(base);
@@ -15,36 +16,16 @@
 @config '../../tailwind.config.js';
 
 /* ============================================================
-   Three Crowns brand theme (matches Prelude)
-   Remaps Onyx's --blue-* accent ramp to Three Crowns navy, so
-   every button/link/active state that references the blue scale
-   becomes navy. Neutrals (grey/tint) are intentionally untouched.
-   Unlayered :root wins over Opal's tokens by cascade order.
+   Three Crowns "Prelude" theme — the full retone lives in
+   ./css/prelude-bridge.css (imported above), which remaps Onyx's
+   primitive ramps to Prelude's gold-on-deep-navy. Only the
+   editorial gold accent token is kept here, for the auth-card
+   hairline. (Unlayered :root wins over Opal by cascade order.)
    ============================================================ */
 :root {
-  --blue-01: #f4f6fa;
-  --blue-05: #e8edf4;
-  --blue-10: #d2dce8;
-  --blue-20: #a7b9d2;
-  --blue-40: #2a4a73; /* navy.light */
-  --blue-45: #24456e; /* link text */
-  --blue-50: #1e3a5f; /* PRIMARY accent — Three Crowns navy */
-  --blue-60: #152d4a; /* navy.dark (hover) */
-  --blue-80: #112440;
-  --blue-85: #0e1f37;
-  --blue-90: #0b1a2e;
-  --blue-95: #081323;
-
-  /* Three Crowns gold — available as a brand accent token */
-  --tc-gold: #b8860b;
-  --tc-gold-light: #d4a843;
-  --tc-gold-muted: #8b6914;
-
-  /* Navy primary buttons app-wide (match Prelude's navy actions).
-     Onyx's primary fill is --theme-primary-05 (near-black ink) by default. */
-  --theme-primary-04: #2a4a73; /* hover  (navy.light) */
-  --theme-primary-05: #1e3a5f; /* fill   (navy) */
-  --theme-primary-06: #152d4a; /* active (navy.dark) */
+  --tc-gold: #b49a56;
+  --tc-gold-light: #c9b06e;
+  --tc-gold-muted: #8a7434;
 }
 
 /* Opt-in DM Serif Display for selective headings (login, welcome greeting,
