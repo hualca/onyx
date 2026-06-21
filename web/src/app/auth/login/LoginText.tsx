@@ -1,18 +1,21 @@
 "use client";
 
 import React from "react";
-import { useSettings } from "@/lib/settings/hooks";
 import Text from "@/refresh-components/texts/Text";
 
 export default function LoginText() {
-  const { appName } = useSettings();
   return (
-    <div className="w-full flex flex-col ">
-      <Text as="p" headingH2 text05>
-        Welcome to {appName}
+    <div className="w-full flex flex-col items-center">
+      <Text
+        as="p"
+        headingH2
+        text05
+        className="font-display text-[26px] leading-tight"
+      >
+        Welcome
       </Text>
       <Text as="p" text03 mainUiMuted>
-        Your open source AI platform for work
+        Sign in to the Three Crowns research platform
       </Text>
     </div>
   );

@@ -27,7 +27,7 @@ export function AdminPageTitle({
           ) : (
             Icon
           )}
-          <Text headingH2 aria-label="admin-page-title">
+          <Text headingH2 aria-label="admin-page-title" className="font-display">
             {title}
           </Text>
         </div>

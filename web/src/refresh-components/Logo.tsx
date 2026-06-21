@@ -54,7 +54,14 @@ export default function Logo({
       />
     </div>
   ) : (
-    <SvgOnyxLogo size={resolvedSize} className={cn("shrink-0", className)} />
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      alt="Three Crowns"
+      src="/three-crowns-mark.svg"
+      width={resolvedSize}
+      height={resolvedSize}
+      className={cn("shrink-0", className)}
+    />
   );
 
   const renderNameAndPoweredBy = (opts: {
@@ -101,8 +108,21 @@ export default function Logo({
   return applicationName ? (
     renderNameAndPoweredBy({ includeLogo: true, includeName: true })
   ) : folded ? (
-    <SvgOnyxLogo size={resolvedSize} className={cn("shrink-0", className)} />
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      alt="Three Crowns"
+      src="/three-crowns-mark.svg"
+      width={resolvedSize}
+      height={resolvedSize}
+      className={cn("shrink-0", className)}
+    />
   ) : (
-    <SvgOnyxLogoTyped size={resolvedSize} className={className} />
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      alt="Three Crowns"
+      src="/three-crowns-wordmark.png"
+      style={{ height: resolvedSize }}
+      className={cn("shrink-0 w-auto", className)}
+    />
   );
 }

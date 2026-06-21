@@ -73,11 +73,16 @@ const Page = async (props: {
           )}
         >
           <div className="w-full">
-            <Text as="p" headingH2 text05>
+            <Text
+              as="p"
+              headingH2
+              text05
+              className="font-display text-[26px] leading-tight"
+            >
               {cloud ? "Complete your sign up" : "Create account"}
             </Text>
             <Text as="p" text03>
-              Get started with Onyx
+              Get started with Three Crowns
             </Text>
           </div>
           {cloud && authUrl && (

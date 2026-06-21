@@ -14,6 +14,55 @@
 @import "./css/z-index.css" layer(base);
 @config '../../tailwind.config.js';
 
+/* ============================================================
+   Three Crowns brand theme (matches Prelude)
+   Remaps Onyx's --blue-* accent ramp to Three Crowns navy, so
+   every button/link/active state that references the blue scale
+   becomes navy. Neutrals (grey/tint) are intentionally untouched.
+   Unlayered :root wins over Opal's tokens by cascade order.
+   ============================================================ */
+:root {
+  --blue-01: #f4f6fa;
+  --blue-05: #e8edf4;
+  --blue-10: #d2dce8;
+  --blue-20: #a7b9d2;
+  --blue-40: #2a4a73; /* navy.light */
+  --blue-45: #24456e; /* link text */
+  --blue-50: #1e3a5f; /* PRIMARY accent — Three Crowns navy */
+  --blue-60: #152d4a; /* navy.dark (hover) */
+  --blue-80: #112440;
+  --blue-85: #0e1f37;
+  --blue-90: #0b1a2e;
+  --blue-95: #081323;
+
+  /* Three Crowns gold — available as a brand accent token */
+  --tc-gold: #b8860b;
+  --tc-gold-light: #d4a843;
+  --tc-gold-muted: #8b6914;
+
+  /* Navy primary buttons app-wide (match Prelude's navy actions).
+     Onyx's primary fill is --theme-primary-05 (near-black ink) by default. */
+  --theme-primary-04: #2a4a73; /* hover  (navy.light) */
+  --theme-primary-05: #1e3a5f; /* fill   (navy) */
+  --theme-primary-06: #152d4a; /* active (navy.dark) */
+}
+
+/* Opt-in DM Serif Display for selective headings (login, welcome greeting,
+   admin titles). --font-kh-teka is DM Serif Display (set in layout.tsx).
+   Declared as a Tailwind v4 @utility so it wins in the utilities layer. */
+@utility font-display {
+  /* !important so it deterministically beats Onyx's font-heading-* @utility
+     (same layer; cascade order otherwise undefined). Opt-in only. */
+  font-family: var(--font-kh-teka) !important;
+  font-weight: 400 !important; /* DM Serif ships 400 only — avoids faux-bold */
+}
+
+/* Three Crowns nameplate accent: a thin gold hairline on the auth card.
+   Gold stays editorial — never on buttons, links, or focus rings. */
+.auth-card {
+  border-top: 2px solid var(--tc-gold);
+}
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still

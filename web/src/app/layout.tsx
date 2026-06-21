@@ -11,7 +11,7 @@ import {
   WebVitals,
 } from "@/lib/analytics/shared";
 import Script from "next/script";
-import { DM_Mono, Hanken_Grotesk } from "next/font/google";
+import { DM_Mono, Source_Sans_3, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import StatsOverlayLoader from "@/components/dev/StatsOverlayLoader";
@@ -21,17 +21,22 @@ import LicenseExpiryBanner from "@/sections/LicenseExpiryBanner";
 import ProductGatingWrapper from "@/providers/ProductGatingWrapper";
 import SWRConfigProvider from "@/providers/SWRConfigProvider";
 
-const hankenGrotesk = Hanken_Grotesk({
+// Three Crowns brand fonts (match Prelude): Source Sans 3 body, DM Serif
+// Display for the display/brand var. We keep the original CSS variable names
+// (--font-hanken-grotesk / --font-kh-teka) so every existing reference updates.
+const hankenGrotesk = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-hanken-grotesk",
   display: "swap",
-  fallback: [
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "Roboto",
-    "sans-serif",
-  ],
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+});
+
+const dmSerifDisplay = DM_Serif_Display({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-kh-teka",
+  display: "swap",
+  fallback: ["Georgia", "Cambria", "Times New Roman", "serif"],
 });
 
 const dmMono = DM_Mono({
@@ -64,7 +69,11 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <html
       lang="en"
-      className={cn(hankenGrotesk.variable, dmMono.variable)}
+      className={cn(
+        hankenGrotesk.variable,
+        dmMono.variable,
+        dmSerifDisplay.variable
+      )}
       suppressHydrationWarning
     >
       <head>

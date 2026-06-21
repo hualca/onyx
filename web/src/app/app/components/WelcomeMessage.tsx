@@ -42,12 +42,12 @@ export default function WelcomeMessage({
       <Section
         data-testid="onyx-logo"
         flexDirection="column"
-        alignItems="start"
+        alignItems="center"
         gap={0.5}
         width="fit"
       >
-        <Logo folded size={32} />
-        <Text as="p" headingH2>
+        <Logo folded size={40} />
+        <Text as="p" headingH2 className="font-display">
           {greeting}
         </Text>
       </Section>
