@@ -9,7 +9,7 @@ import { useUser } from "@/providers/UserProvider";
 // Derive a display first name from the signed-in account's email local-part
 // (e.g. "hugh.carlson@..." -> "Hugh").
 function firstNameOf(email?: string | null): string {
-  const first = (email || "").split("@")[0].split(/[._-]+/)[0];
+  const first = (email || "").split("@")[0]?.split(/[._-]+/)[0];
   return first ? first.charAt(0).toUpperCase() + first.slice(1) : "";
 }
 
