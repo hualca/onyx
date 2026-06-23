@@ -5,17 +5,16 @@ import { cn } from "@opal/utils";
 // rendered with issues. `folded` shows a compact "TC" monogram for the collapsed
 // sidebar; otherwise the full "Three Crowns" (uppercased via CSS).
 export default function ThreeCrownsWordmark({
-  folded,
   size = 16,
   className,
 }: {
-  folded?: boolean;
+  folded?: boolean; // accepted for caller compatibility; wordmark is the same either way
   size?: number;
   className?: string;
 }) {
   return (
     <span
-      aria-label="Three Crowns"
+      aria-label="Onyx"
       className={cn("select-none whitespace-nowrap shrink-0", className)}
       style={{
         color: "var(--tc-gold, #b49a56)",
@@ -28,7 +27,7 @@ export default function ThreeCrownsWordmark({
         fontWeight: 600,
       }}
     >
-      {folded ? "TC" : "Three Crowns"}
+      Onyx
     </span>
   );
 }
