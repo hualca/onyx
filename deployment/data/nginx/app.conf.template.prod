@@ -1,8 +1,13 @@
-# Log format to include request latency
-log_format custom_main '$remote_addr - $remote_user [$time_local] "$request" '
-                '$status $body_bytes_sent "$http_referer" '
-                '"$http_user_agent" "$http_x_forwarded_for" '
-                'rt=$request_time';
+# Content-minimized origin telemetry.  Do not record paths, query strings,
+# referrers, user agents, forwarded addresses, or authenticated identities.
+log_format custom_main escape=json
+                '{"timestamp":"$time_iso8601",'
+                '"host":"$host",'
+                '"method":"$request_method",'
+                '"status":$status,'
+                '"bytes":$body_bytes_sent,'
+                '"request_seconds":$request_time,'
+                '"edge_request_id":"$http_cf_ray"}';
 
 upstream api_server {
     # fail_timeout=0 means we always retry an upstream even if it failed
